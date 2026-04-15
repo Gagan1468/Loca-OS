@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocaOS — Grow Your Local Business Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0d0a;
+    --cream: #f5f0e8;
+    --warm: #f0e8d5;
+    --accent: #d4531a;
+    --accent2: #2a6e4e;
+    --muted: #7a7060;
+    --border: #e0d8c8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: scale(1.03); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 4rem;
+    padding-top: 5rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,83,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 440px;
+    margin-top: 1.5rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(212,83,26,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,83,26,0.4); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--border);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--warm); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.4s forwards;
+  }
+
+  .dashboard-mockup {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(15,13,10,0.15), 0 0 0 1px var(--border);
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .dash-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+  .dash-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; }
+  .dash-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+
+  .dash-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.8rem; margin-bottom: 1.2rem;
+  }
+  .stat-card {
+    background: var(--warm);
+    border-radius: 12px;
+    padding: 0.9rem;
+  }
+  .stat-card .num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; line-height: 1; }
+  .stat-card .lbl { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+  .stat-card:first-child .num { color: var(--accent); }
+  .stat-card:nth-child(2) .num { color: var(--accent2); }
+
+  .dash-bar-section { margin-bottom: 1rem; }
+  .dash-bar-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .dash-bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.4rem; }
+  .dash-bar-fill { height: 100%; border-radius: 10px; background: var(--accent); animation: barGrow 1.5s ease forwards; }
+  .dash-bar-fill.green { background: var(--accent2); animation-delay: 0.2s; }
+  .dash-bar-fill.tan { background: #c4a96a; animation-delay: 0.4s; width: 0 !important; }
+
+  @keyframes barGrow {
+    from { width: 0 !important; }
+  }
+
+  .dash-orders { }
+  .order-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+  .order-row:last-child { border-bottom: none; }
+  .order-status {
+    padding: 0.2rem 0.6rem; border-radius: 100px; font-size: 0.68rem; font-weight: 500;
+  }
+  .status-done { background: #d4edda; color: #2a6e4e; }
+  .status-new { background: #fde8de; color: var(--accent); }
+  .status-prog { background: #fff3cd; color: #856404; }
+
+  .float-badge {
+    position: absolute;
+    background: #fff;
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 8px 30px rgba(15,13,10,0.12), 0 0 0 1px var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .float-badge.top-left { top: -20px; left: -30px; display: flex; align-items: center; gap: 0.5rem; }
+  .float-badge.bottom-right { bottom: -20px; right: -20px; text-align: center; }
+  .float-icon { font-size: 1.2rem; }
+  .float-num { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: var(--accent2); line-height: 1; }
+  .float-txt { font-size: 0.65rem; color: var(--muted); }
+
+  .hero-social-proof {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s forwards;
+  }
+  .avatars { display: flex; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 2px solid var(--cream);
+    margin-left: -8px;
+    font-size: 0.65rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #fff;
+  }
+  .avatar:first-child { margin-left: 0; background: var(--accent); }
+  .avatar:nth-child(2) { background: var(--accent2); }
+  .avatar:nth-child(3) { background: #c4a96a; }
+  .avatar:nth-child(4) { background: #7a7060; }
+  .proof-text { font-size: 0.8rem; color: var(--muted); }
+  .proof-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  /* ── PROBLEM ── */
+  .problem {
+    background: var(--ink);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .problem-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    position: relative;
+  }
+
+  .problem h2 { color: var(--cream); }
+  .problem h2 em { color: var(--accent); font-style: italic; }
+  .problem .section-label { color: rgba(245,240,232,0.5); }
+
+  .problem-desc {
+    color: rgba(245,240,232,0.6);
+    font-size: 1rem;
+    margin-top: 1.2rem;
+    line-height: 1.75;
+  }
+
+  .problem-points {
+    display: flex; flex-direction: column; gap: 1rem;
+    list-style: none;
+  }
+
+  .problem-point {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .problem-point:hover { background: rgba(255,255,255,0.07); border-color: rgba(212,83,26,0.4); }
+
+  .problem-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border-radius: 10px;
+    background: rgba(212,83,26,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .problem-point-text { font-size: 0.95rem; color: rgba(245,240,232,0.85); line-height: 1.4; }
+  .problem-point-text strong { color: var(--cream); display: block; font-weight: 500; margin-bottom: 0.1rem; }
+
+  /* ── SOLUTION ── */
+  .solution {
+    background: var(--cream);
+  }
+  .solution-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+
+  .solution-text h2 em { font-style: italic; color: var(--accent2); }
+
+  .solution-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 1.2rem;
+    line-height: 1.75;
+    max-width: 420px;
+  }
+
+  .solution-chips {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .chip {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .chip:hover { background: #fff; border-color: var(--accent); color: var(--accent); }
+
+  .solution-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .rings {
+    position: relative;
+    width: 320px; height: 320px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  }
+  .ring:nth-child(1) { width: 100%; height: 100%; }
+  .ring:nth-child(2) { width: 72%; height: 72%; }
+  .ring:nth-child(3) { width: 44%; height: 44%; }
+
+  .ring-center {
+    position: relative; z-index: 2;
+    width: 110px; height: 110px;
+    background: var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    animation: spin-slow 20s linear infinite;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .ring-center span { animation: spin-slow 20s linear infinite reverse; }
+
+  .ring-dot {
+    position: absolute;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(15,13,10,0.1), 0 0 0 1px var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    animation: orbit 12s linear infinite;
+  }
+
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+  }
+  .ring-dot:nth-child(5) { animation-delay: -3s; }
+  .ring-dot:nth-child(6) { animation-delay: -6s; }
+  .ring-dot:nth-child(7) { animation-delay: -9s; }
+
+  /* ── FEATURES ── */
+  .features {
+    background: var(--warm);
+  }
+  .features-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .features-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .feature-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,13,10,0.1); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .feature-card:first-child {
+    background: var(--ink); color: var(--cream);
+  }
+  .feature-card:first-child h3 { color: var(--cream); }
+  .feature-card:first-child p { color: rgba(245,240,232,0.6); }
+  .feature-card:first-child .feature-icon { background: rgba(255,255,255,0.08); }
+  .feature-card:first-child:hover { box-shadow: 0 16px 40px rgba(15,13,10,0.25); }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    background: var(--cream);
+  }
+  .how-inner {
+    max-width: 900px; margin: 0 auto; text-align: center;
+  }
+  .how-inner h2 { margin: 0 auto; }
+  .how-inner .section-label { display: block; }
+
+  .steps {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: calc(16.66% + 1rem); right: calc(16.66% + 1rem);
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .step {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.4rem;
+    position: relative; z-index: 1;
+    box-shadow: 0 0 0 6px var(--cream), 0 0 0 7px var(--border);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .step:hover .step-num { background: var(--accent); }
+
+  .step h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,83,26,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .final-cta-inner {
+    max-width: 700px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .final-cta h2 { color: var(--cream); font-size: clamp(2.5rem, 4.5vw, 4rem); }
+  .final-cta h2 em { font-style: italic; color: var(--accent); }
+
+  .final-cta p {
+    font-size: 1.05rem;
+    color: rgba(245,240,232,0.6);
+    margin-top: 1.2rem;
+    line-height: 1.7;
+  }
+
+  .cta-actions {
+    display: flex; gap: 1rem; justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary-light {
+    background: var(--cream);
+    color: var(--ink);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary-light:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,240,232,0.2); }
+
+  .btn-outline-light {
+    background: transparent;
+    color: var(--cream);
+    border: 1.5px solid rgba(245,240,232,0.3);
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline-light:hover { border-color: var(--cream); background: rgba(245,240,232,0.08); }
+
+  .cta-note {
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.35);
+    margin-top: 1.2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0807;
+    color: rgba(245,240,232,0.4);
+    text-align: center;
+    padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--cream);
+  }
+  .footer-logo span { color: var(--accent); }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.35);
+  }
+  .footer-copy { font-size: 0.75rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; gap: 3rem; }
+    .hero-visual { display: none; }
+    section { padding: 5rem 2rem; }
+    .problem-inner, .solution-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .features-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; gap: 2rem; }
+    .steps::before { display: none; }
+    footer { flex-direction: column; text-align: center; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Loca<span>OS</span></div>
+  <button class="nav-cta">Join Waitlist →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Now accepting early access</div>
+    <h1>Grow your local<br>business <em>online</em><br>with LocaOS</h1>
+    <p>Manage orders, reach nearby customers, and scale faster — all in one simple platform built for local businesses.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Join Waitlist →</button>
+      <button class="btn-secondary">Get Early Access</button>
+    </div>
+    <div class="hero-social-proof">
+      <div class="avatars">
+        <div class="avatar">AK</div>
+        <div class="avatar">MJ</div>
+        <div class="avatar">RB</div>
+        <div class="avatar">+</div>
+      </div>
+      <div class="proof-text"><strong>240+ businesses</strong> already on the waitlist</div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position: relative;">
+      <div class="dashboard-mockup">
+        <div class="dash-header">
+          <span class="dash-title">Business Dashboard</span>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#e8c84a;"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#6bcb77;"></div>
+            <div class="dash-dot"></div>
+          </div>
+        </div>
+        <div class="dash-stats">
+          <div class="stat-card"><div class="num">48</div><div class="lbl">Orders Today</div></div>
+          <div class="stat-card"><div class="num">312</div><div class="lbl">Customers</div></div>
+          <div class="stat-card"><div class="num">↑24%</div><div class="lbl">This Month</div></div>
+        </div>
+        <div class="dash-bar-section">
+          <div class="dash-bar-label">Revenue by channel</div>
+          <div class="dash-bar"><div class="dash-bar-fill" style="width:72%"></div></div>
+          <div class="dash-bar"><div class="dash-bar-fill green" style="width:55%"></div></div>
+          <div class="dash-bar"><div class="dash-bar-fill tan" style="width:38%"></div></div>
+        </div>
+        <div class="dash-orders">
+          <div class="order-row">
+            <span style="font-weight:500;">Maria C.</span>
+            <span style="color:var(--muted);">₦4,500</span>
+            <span class="order-status status-done">Delivered</span>
+          </div>
+          <div class="order-row">
+            <span style="font-weight:500;">James O.</span>
+            <span style="color:var(--muted);">₦8,200</span>
+            <span class="order-status status-new">New</span>
+          </div>
+          <div class="order-row">
+            <span style="font-weight:500;">Fatima A.</span>
+            <span style="color:var(--muted);">₦2,900</span>
+            <span class="order-status status-prog">In Progress</span>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge top-left">
+        <span class="float-icon">📍</span>
+        <div><div style="font-weight:600;">Local Discovery</div><div style="color:var(--muted);font-size:0.65rem;">12 nearby views</div></div>
+      </div>
+      <div class="float-badge bottom-right">
+        <div class="float-num">+24%</div>
+        <div class="float-txt">Growth this week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div>
+      <span class="section-label">The Problem</span>
+      <h2>Running a local business<br>shouldn't be <em>this hard.</em></h2>
+      <p class="problem-desc">Local businesses are the backbone of every community. Yet they're left to figure everything out alone — from visibility to operations.</p>
+    </div>
+    <ul class="problem-points">
+      <li class="problem-point">
+        <div class="problem-icon">🌐</div>
+        <div class="problem-point-text">
+          <strong>No strong online presence</strong>
+          Invisible to customers who search online first
+        </div>
+      </li>
+      <li class="problem-point">
+        <div class="problem-icon">📍</div>
+        <div class="problem-point-text">
+          <strong>Hard to reach nearby customers</strong>
+          The right people are close, but can't find you
+        </div>
+      </li>
+      <li class="problem-point">
+        <div class="problem-icon">📋</div>
+        <div class="problem-point-text">
+          <strong>Orders managed manually</strong>
+          Notebooks, WhatsApp, guesswork — it doesn't scale
+        </div>
+      </li>
+      <li class="problem-point">
+        <div class="problem-icon">⚔️</div>
+        <div class="problem-point-text">
+          <strong>Losing customers to big platforms</strong>
+          Competing against giants with none of their tools
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="solution-inner">
+    <div class="solution-text reveal">
+      <span class="section-label">The Solution</span>
+      <h2>LocaOS makes<br>it <em>simple.</em></h2>
+      <p class="solution-desc">LocaOS helps local businesses go online, manage operations, and grow — without needing technical skills. One platform, everything you need.</p>
+      <div class="solution-chips">
+        <span class="chip">No code required</span>
+        <span class="chip">Set up in minutes</span>
+        <span class="chip">Built for local</span>
+        <span class="chip">Grow at your pace</span>
+      </div>
+    </div>
+    <div class="solution-visual reveal">
+      <div class="rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring-center"><span>LocaOS</span></div>
+        <div class="ring-dot">📦</div>
+        <div class="ring-dot">👥</div>
+        <div class="ring-dot">📍</div>
+        <div class="ring-dot">📊</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <div class="features-header reveal">
+      <div>
+        <span class="section-label">Features</span>
+        <h2>Everything you need.<br>Nothing you don't.</h2>
+      </div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>Smart Dashboard</h3>
+        <p>Track orders, monitor performance, and manage everything from one place. Real-time data, zero overwhelm.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.1s">
+        <div class="feature-icon">👥</div>
+        <h3>Customer Management</h3>
+        <p>Keep track of your customers, their orders, and build better relationships that turn one-time buyers into regulars.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s">
+        <div class="feature-icon">📍</div>
+        <h3>Local Discovery</h3>
+        <p>Get discovered by nearby customers actively looking for your services. Appear when it matters most.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.3s">
+        <div class="feature-icon">⚡</div>
+        <h3>Easy Setup</h3>
+        <p>Set up your business in minutes — no technical knowledge required. If you can use WhatsApp, you can use LocaOS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <div class="reveal">
+      <span class="section-label">How It Works</span>
+      <h2>Get started in minutes</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal" style="transition-delay:0.1s">
+        <div class="step-num">1</div>
+        <h3>Sign Up & Create Profile</h3>
+        <p>Create your free account and set up your business profile in under 5 minutes.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.2s">
+        <div class="step-num">2</div>
+        <h3>Set Up Your Business</h3>
+        <p>Add your products, services, location, and hours. Make your business discoverable.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.3s">
+        <div class="step-num">3</div>
+        <h3>Start Receiving Orders</h3>
+        <p>Go live and start managing real orders, reaching new customers, and growing your revenue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner reveal">
+    <h2>Start growing your<br>business with <em>LocaOS</em></h2>
+    <p>Join early and be among the first to bring your business online. Early members get priority features and founding member perks.</p>
+    <div class="cta-actions">
+      <button class="btn-primary-light">Join Waitlist →</button>
+      <button class="btn-outline-light">Get Early Access</button>
+    </div>
+    <p class="cta-note">Free to join · No credit card required · Cancel anytime</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Loca<span>OS</span></div>
+  <div class="footer-tagline">Built for local businesses. Designed for real growth.</div>
+  <div class="footer-copy">© 2025 LocaOS. All rights reserved.</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Bar animation fix (ensure they animate on load)
+  document.querySelectorAll('.dash-bar-fill').forEach(bar => {
+    bar.style.width = bar.style.width || '0%';
+    setTimeout(() => {
+      if (bar.classList.contains('green')) bar.style.width = '55%';
+      else if (bar.classList.contains('tan')) bar.style.width = '38%';
+      else bar.style.width = '72%';
+    }, 800);
+  });
+</script>
+</body>
+</html>
